@@ -13,14 +13,14 @@ function getmatches(data) {
     return allmatches
 }
 
-function teams(m) {
+function teams(m, teamchosen) {
     const team = []
     m.forEach(el => {
         team.push(el.filter(e => {
-            return e.team1.key == 'arsenal'
+            return e.team1.key == teamchosen
         }))
         team.push(el.filter(e => {
-            return e.team2.key == 'arsenal'
+            return e.team2.key == teamchosen
         }))
     })
     const x = team.filter(t => {
@@ -29,13 +29,13 @@ function teams(m) {
     return x
 }
 
-function score(m, finalteam) {
+function score(m, teamchosen) {
     let score = 0
     m.forEach((match) => {
-        if (match[0].team1.key == 'arsenal') {
+        if (match[0].team1.key ==  teamchosen) {
             score += match[0].score1
         }
-        if (match[0].team2.key == 'arsenal') {
+        if (match[0].team2.key ==  teamchosen) {
             score += match[0].score2
         }
         //  console.log(match)
@@ -43,10 +43,10 @@ function score(m, finalteam) {
     return score
 }
 
-const getgoals =  async () => {
+const getgoals =  async (teamchosen) => {
     const y = await getData()
     const x = getmatches(y)
-    const z = teams(x)
-    const final = score(z)
+    const z = teams(x, teamchosen)
+    const final = score(z, teamchosen)
     return final
 }
